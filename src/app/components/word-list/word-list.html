@@ -1,0 +1,37 @@
+<div class="table">
+  <div class="header-container">
+    <div class="header">Deutsch</div>
+    <div class="header">Englisch</div>
+  </div>
+  <div class="table-container">
+    <form #form="ngForm" (ngSubmit)="saveEntry(form)">
+      <div class="new-entry-container">
+        <div class="entry">
+          <input
+            type="text"
+            name="language1"
+            placeholder="test"
+            [(ngModel)]="newWordPair.language1"
+            required
+          />
+        </div>
+        <div class="entry">
+          <input
+            type="text"
+            name="language2"
+            placeholder="test"
+            [(ngModel)]="newWordPair.language2"
+            required
+          />
+          <div class="action-container">
+            <button type="submit">Save</button>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    @for(wordPair of wordList(); track wordPair){
+    <app-entry [wordPair]="wordPair"></app-entry>
+    }@empty { Keine Wortpaare vorhanden }
+  </div>
+</div>
