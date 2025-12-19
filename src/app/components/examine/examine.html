@@ -1,1 +1,22 @@
 <p>examine works!</p>
+
+@if(!examinationStart()){
+<button (click)="startExamination()">Starte Prüfung</button>
+}@else { @if(duration() === ''){
+{{ question() }}
+<form #form="ngForm" (ngSubmit)="checkAnswer(form)">
+  <input type="text" name="userAnswer" required [(ngModel)]="userAnswer" placeholder="Antwort" />
+  <button type="submit">Prüfen</button>
+</form>
+} @else { Du hast {{ duration() }} für die Prüfung benötigt. Du hast
+{{ numberOfCorrectAnswers() }}/{{ numberOfQuestions() }}
+richtig beantwortet.
+<div>
+  Falsche Antworten: @for(wrongAnswer of listOfWrongAnswers(); track wrongAnswer){
+  <div>
+    {{ wrongAnswer.question }}:{{ wrongAnswer.correctAnswer }} -- deine Antwort:
+    {{ wrongAnswer.answer }}
+  </div>
+  }
+</div>
+<button (click)="startExamination()">Starte Prüfung erneut</button>} }
