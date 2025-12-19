@@ -1,12 +1,12 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { Trainer } from "./views/trainer/trainer";
+import { TrainerComponent } from './views/trainer/trainer';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Trainer],
+  imports: [RouterOutlet, TrainerComponent],
   templateUrl: './app.html',
-  styleUrl: './app.scss'
+  styleUrl: './app.scss',
 })
 export class App {
   protected readonly title = signal('vocabulary-trainer');

@@ -1,18 +1,18 @@
 <div class="tab-container">
   <div class="header-container">
-    <div class="header">Erfassen</div>
-    <div class="header">Trainieren</div>
-    <div class="header">Prüfen</div>
+    <div class="header" (click)="setView('manage')">Erfassen</div>
+    <div class="header" (click)="setView('train')">Trainieren</div>
+    <div class="header" (click)="setView('examine')">Prüfen</div>
   </div>
   <div class="tab-content-container">
     <div class="content">
-      <div class="create-content">
-        <div class="action-container">
-          <button (click)="importDefault()">Default Einträge importieren</button>
-          <button (click)="resetList()">Reset</button>
-        </div>
-        <app-word-list [wordList]="wordList()"></app-word-list>
-      </div>
+      @switch(view()){ @case('manage'){
+      <app-manage></app-manage>
+      } @case('train'){
+      <app-train></app-train>
+      } @case('examine'){
+      <app-examine></app-examine>
+      } }
     </div>
   </div>
 </div>

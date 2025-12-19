@@ -1,0 +1,14 @@
+<p>train works!</p>
+
+@if(selectedWordPair()){
+{{ question() }}
+@switch(state()){ @case('waitForAnswer'){
+<form #form="ngForm" (ngSubmit)="checkAnswer(form)">
+  <input type="text" name="userAnswer" required [(ngModel)]="userAnswer" placeholder="Antwort" />
+  <button type="submit">Prüfen</button>
+</form>
+} @case('correct'){
+<button (click)="selectNext()">Weiter</button>
+} @case('wrong'){ Korrekte Antwort: {{ this.correctAnswer() }}
+<button (click)="selectNext()">Weiter</button>
+} } }@else { Keine Wortpaare vorhanden. Erfasse zuerst welche. }

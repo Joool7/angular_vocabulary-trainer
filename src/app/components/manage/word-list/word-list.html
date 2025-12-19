@@ -4,7 +4,7 @@
     <div class="header">Englisch</div>
   </div>
   <div class="table-container">
-    <form #form="ngForm" (ngSubmit)="saveEntry(form)">
+    <form #form="ngForm" (ngSubmit)="newEntry(form)">
       <div class="new-entry-container">
         <div class="entry">
           <input
@@ -30,8 +30,12 @@
       </div>
     </form>
 
-    @for(wordPair of wordList(); track wordPair){
-    <app-entry [wordPair]="wordPair"></app-entry>
+    @for(wordPair of wordList(); track wordPair.id){
+    <app-entry
+      [wordPair]="wordPair"
+      (deleteEmitter)="deleteEntry(wordPair.id)"
+      (updateEmitter)="updateEntry($event)"
+    ></app-entry>
     }@empty { Keine Wortpaare vorhanden }
   </div>
 </div>

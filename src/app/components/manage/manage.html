@@ -1,0 +1,12 @@
+<div class="create-content">
+  <div class="action-container">
+    <button (click)="importDefault()">Default Einträge importieren</button>
+    <button (click)="resetList()">Reset</button>
+  </div>
+  <app-word-list
+    [wordList]="wordList()"
+    (deleteEmitter)="deleteEntry($event)"
+    (newEmitter)="newEntry($event)"
+    (updateEmitter)="updateEntry($event)"
+  ></app-word-list>
+</div>

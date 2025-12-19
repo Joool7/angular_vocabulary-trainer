@@ -1,25 +1,19 @@
-import { WordList } from './../../components/word-list/word-list';
-import { WordPairService } from './../../services/word-pair';
-import { Component, computed, inject, OnInit, signal } from '@angular/core';
+import { Component, signal } from '@angular/core';
+import { ManageComponent as ManageComponent } from '../../components/manage/manage';
+import { TrainerViews } from './trainer.model';
+import { TrainComponent } from '../../components/train/train';
+import { ExamineComponent } from '../../components/examine/examine';
 
 @Component({
   selector: 'app-trainer',
-  imports: [WordList],
+  imports: [ManageComponent, TrainComponent, ExamineComponent],
   templateUrl: './trainer.html',
   styleUrl: './trainer.scss',
 })
-export class Trainer {
-  private readonly _wordPairService = inject(WordPairService);
+export class TrainerComponent {
+  protected view = signal<TrainerViews>('manage');
 
-  wordList = computed(() =>
-    this._wordPairService.wordList().sort((a, b) => a.language1.localeCompare(b.language1))
-  );
-
-  importDefault(): void {
-    this._wordPairService.import();
-  }
-
-  resetList(): void {
-    this._wordPairService.reset();
+  setView(view: TrainerViews): void {
+    this.view.set(view);
   }
 }
