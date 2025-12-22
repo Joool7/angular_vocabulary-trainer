@@ -2,10 +2,12 @@ import { Component, inject, computed, signal, OnInit } from '@angular/core';
 import { WordPairService } from '../../services/word-pair-service';
 import { WordPair } from '../../services/word-pair.model';
 import { FormsModule, NgForm } from '@angular/forms';
+import { ButtonComponent } from '../shared/button-component/button-component';
+import { InputComponent } from '../shared/input-component/input-component';
 
 @Component({
   selector: 'app-train',
-  imports: [FormsModule],
+  imports: [FormsModule, ButtonComponent, InputComponent],
   templateUrl: './train.html',
   styleUrl: './train.scss',
 })

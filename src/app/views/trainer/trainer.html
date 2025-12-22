@@ -2,10 +2,20 @@
   <app-card class="card">
     <div class="tab-container">
       <div class="header-container">
-        <div class="header" (click)="setView('manage')" [class.active]="view() === 'manage'">
+        <div
+          class="header"
+          (click)="setView('manage')"
+          [class.active]="view() === 'manage'"
+          [class.disabled]="examinationRunning()"
+        >
           Erfassen
         </div>
-        <div class="header" (click)="setView('train')" [class.active]="view() === 'train'">
+        <div
+          class="header"
+          (click)="setView('train')"
+          [class.active]="view() === 'train'"
+          [class.disabled]="examinationRunning()"
+        >
           Trainieren
         </div>
         <div class="header" (click)="setView('examine')" [class.active]="view() === 'examine'">
@@ -18,7 +28,7 @@
         } @case('train'){
         <app-train></app-train>
         } @case('examine'){
-        <app-examine></app-examine>
+        <app-examine (examinationRunningEmitted)="updateExaminationRunning($event)"></app-examine>
         } }
       </div>
     </div>

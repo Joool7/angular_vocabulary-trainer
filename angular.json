@@ -29,9 +29,10 @@
                 "input": "public"
               }
             ],
-            "styles": [
-              "src/styles.scss"
-            ]
+            "styles": ["src/styles.scss"],
+            "stylePreprocessorOptions": {
+              "includePaths": ["src"]
+            }
           },
           "configurations": {
             "production": {
@@ -67,7 +68,12 @@
               "buildTarget": "vocabulary-trainer:build:development"
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "development",
+          "options": {
+            "stylePreprocessorOptions": {
+              "includePaths": ["src"]
+            }
+          }
         },
         "test": {
           "builder": "@angular/build:unit-test"

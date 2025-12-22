@@ -1,0 +1,13 @@
+<form (submit)="updateEntry()">
+  <div class="new-entry-container">
+    <div class="entry">
+      <app-input placeholder="Deutsch..." [(value)]="newLanguage1" />
+    </div>
+    <div class="entry">
+      <app-input placeholder="Englisch..." [(value)]="newLanguage2" />
+      <div class="action-container">
+        <app-button [disabled]="!formValid()">Save</app-button>
+      </div>
+    </div>
+  </div>
+</form>

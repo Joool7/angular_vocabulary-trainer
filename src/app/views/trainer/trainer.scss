@@ -12,11 +12,19 @@
         height: 20px;
         display: flex;
         justify-content: space-evenly;
-        border-bottom: #afafaf solid 1px;
+        border-bottom: var(--color-separator) solid 1px;
 
         .header {
+          font-weight: 600;
+          cursor: pointer;
+
           &.active {
-            border-bottom: #0073ed solid 2px;
+            border-bottom: var(--color-primary) solid 2px;
+          }
+
+          &.disabled {
+            opacity: 0.5;
+            pointer-events: none;
           }
         }
       }

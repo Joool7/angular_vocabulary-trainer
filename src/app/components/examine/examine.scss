@@ -1,0 +1,60 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  .translation-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+
+    .question {
+      margin: 16px 0px;
+      font-weight: bolder;
+      font-size: large;
+    }
+
+    form {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+
+      button {
+        width: 100%;
+      }
+    }
+  }
+
+  .title {
+    font-weight: bold;
+  }
+
+  .result {
+    p {
+      display: inline;
+      font-weight: bold;
+    }
+  }
+
+  .wrong-container {
+    background-color: rgba(157, 157, 157, 0.186);
+    border-radius: 4px;
+    padding: 4px;
+    .list {
+      .entry {
+        padding: 8px 4px;
+
+        p {
+          display: inline;
+          font-weight: bold;
+        }
+
+        &:not(:last-child) {
+          border-bottom: solid 1px var(--color-separator);
+        }
+      }
+    }
+  }
+}

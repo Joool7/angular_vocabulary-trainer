@@ -1,7 +1,9 @@
-import { Component, computed, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, OnInit, output, signal } from '@angular/core';
 import { WordPairService } from '../../services/word-pair-service';
 import { WordPair } from '../../services/word-pair.model';
 import { FormsModule, NgForm } from '@angular/forms';
+import { InputComponent } from '../shared/input-component/input-component';
+import { ButtonComponent } from '../shared/button-component/button-component';
 
 interface QuestionAnswer {
   question: string;
@@ -11,7 +13,7 @@ interface QuestionAnswer {
 
 @Component({
   selector: 'app-examine',
-  imports: [FormsModule],
+  imports: [FormsModule, InputComponent, ButtonComponent],
   templateUrl: './examine.html',
   styleUrl: './examine.scss',
 })
@@ -20,7 +22,9 @@ export class ExamineComponent implements OnInit {
   private _numberAnswered = 0;
   private _remainingQuestions: WordPair[] = [];
 
-  examinationStart = signal<number | null>(null);
+  examinationRunningEmitted = output<boolean>();
+
+  examinationStartDate = signal<number | null>(null);
   numberOfQuestions = signal(0);
   numberOfCorrectAnswers = signal(0);
 
@@ -49,12 +53,15 @@ export class ExamineComponent implements OnInit {
   }
 
   startExamination(): void {
-    this.examinationStart.set(Date.now());
+    this.examinationRunningEmitted.emit(true);
+    this.examinationStartDate.set(Date.now());
     this._remainingQuestions = this._wordPairService.wordList().slice();
     this.numberOfCorrectAnswers.set(0);
     this._numberAnswered = 0;
     this.duration.set('');
     this._selectNextWordPair();
+    this.listOfWrongAnswers.set([]);
+    this.userAnswer.set('');
   }
 
   checkAnswer(form: NgForm): void {
@@ -80,14 +87,16 @@ export class ExamineComponent implements OnInit {
     if (this._numberAnswered < this.numberOfQuestions()) {
       this.selectNext();
     } else {
-      const examinationStart = this.examinationStart();
+      const examinationStart = this.examinationStartDate();
       if (!examinationStart) return;
+      this.examinationRunningEmitted.emit(false);
       this.duration.set(this._millisToReadableTime(Date.now() - examinationStart));
     }
   }
 
   selectNext(): void {
     this._selectNextWordPair();
+    this.userAnswer.set('');
   }
 
   private _selectNextWordPair(): void {

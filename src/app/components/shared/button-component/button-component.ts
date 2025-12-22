@@ -1,4 +1,4 @@
-import { Component, input, output, signal } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 
 @Component({
   selector: 'app-button',
@@ -9,6 +9,7 @@ import { Component, input, output, signal } from '@angular/core';
 export class ButtonComponent {
   icon = input('');
   buttonType = input<'primary' | 'secondary' | 'error'>('primary');
+  disabled = input(false);
 
   clickEmitted = output();
 

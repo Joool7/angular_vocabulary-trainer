@@ -4,36 +4,11 @@
   <div class="entry">
     {{ wordPair().language2 }}
     <div class="action-container">
-      <app-button (click)="edit()">Edit</app-button>
-      <app-button [buttonType]="'error'" (click)="delete()">Delete</app-button>
+      <app-button (clickEmitted)="edit()">Edit</app-button>
+      <app-button [buttonType]="'error'" (clickEmitted)="delete()">Delete</app-button>
     </div>
   </div>
   }@else {
-  <!-- TODO separate component as it is used in word-list again -->
-  <form #form="ngForm" (ngSubmit)="updateEntry(form)">
-    <div class="new-entry-container">
-      <div class="entry">
-        <input
-          type="text"
-          name="language1"
-          placeholder="test"
-          [(ngModel)]="newWordPair().language1"
-          required
-        />
-      </div>
-      <div class="entry">
-        <input
-          type="text"
-          name="language2"
-          placeholder="test"
-          [(ngModel)]="newWordPair().language2"
-          required
-        />
-        <div class="action-container">
-          <app-button>Save</app-button>
-        </div>
-      </div>
-    </div>
-  </form>
+  <app-entry-form [wordPair]="wordPair()" (updateEmitter)="updateEntry($event)"></app-entry-form>
   }
 </div>

@@ -4,31 +4,9 @@
     <div class="header">Englisch</div>
   </div>
   <div class="table-container">
-    <form #form="ngForm" (ngSubmit)="newEntry(form)">
-      <div class="new-entry-container">
-        <div class="entry">
-          <input
-            type="text"
-            name="language1"
-            placeholder="Deutsch..."
-            [(ngModel)]="newWordPair.language1"
-            required
-          />
-        </div>
-        <div class="entry">
-          <input
-            type="text"
-            name="language2"
-            placeholder="Englisch..."
-            [(ngModel)]="newWordPair.language2"
-            required
-          />
-          <div class="action-container">
-            <app-button [buttonType]="'secondary'">Save</app-button>
-          </div>
-        </div>
-      </div>
-    </form>
+    <div class="new-entry-container">
+      <app-entry-form [wordPair]="newWordPair" (updateEmitter)="newEntry($event)"></app-entry-form>
+    </div>
 
     @for(wordPair of wordList(); track wordPair.id){
     <app-entry

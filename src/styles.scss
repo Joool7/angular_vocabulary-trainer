@@ -1,4 +1,21 @@
-/* You can add global styles to this file, and also import other style files */
+* {
+  box-sizing: border-box;
+}
+
 body {
   font-family: 'Roboto', sans-serif;
+
+  --color-primary: #0073ed;
+  --color-primary-active: #398de6;
+  --color-secondary: #e3e3e3;
+  --color-secondary-active: #f0efef;
+  --color-error: #ec5f34;
+  --color-error-active: #ea7b59;
+  --color-correct: #00944f;
+  --color-wrong: #dc3c00;
+  --color-input: #dddddd68;
+
+  --color-separator: #afafaf;
+
+  --shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }

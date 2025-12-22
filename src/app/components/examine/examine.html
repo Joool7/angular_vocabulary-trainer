@@ -1,22 +1,47 @@
-<p>examine works!</p>
+@if(numberOfQuestions() > 0){ @if(!examinationStartDate()){
+<app-button (clickEmitted)="startExamination()">Prüfung starten</app-button>
+}@else {
+<div class="container">
+  @if(duration() === ''){
+  <div>Übersetze folgendes Wort:</div>
+  <div class="translation-container">
+    <div class="question">
+      {{ question() }}
+    </div>
+    <form #form="ngForm" (ngSubmit)="checkAnswer(form)">
+      <app-input [(value)]="userAnswer" placeholder="Deine Antwort..." />
+      <app-button type="submit">Bestätigen</app-button>
+    </form>
+  </div>
+  } @else {
+  <div class="title">Prüfung beendet!</div>
+  <div class="result">
+    Dauer:
+    <p>{{ duration() }}</p>
+  </div>
+  <div class="result">
+    Ergebnis:
+    <p>{{ numberOfCorrectAnswers() }}/{{ numberOfQuestions() }}</p>
+  </div>
 
-@if(!examinationStart()){
-<button (click)="startExamination()">Starte Prüfung</button>
-}@else { @if(duration() === ''){
-{{ question() }}
-<form #form="ngForm" (ngSubmit)="checkAnswer(form)">
-  <input type="text" name="userAnswer" required [(ngModel)]="userAnswer" placeholder="Antwort" />
-  <button type="submit">Prüfen</button>
-</form>
-} @else { Du hast {{ duration() }} für die Prüfung benötigt. Du hast
-{{ numberOfCorrectAnswers() }}/{{ numberOfQuestions() }}
-richtig beantwortet.
-<div>
-  Falsche Antworten: @for(wrongAnswer of listOfWrongAnswers(); track wrongAnswer){
-  <div>
-    {{ wrongAnswer.question }}:{{ wrongAnswer.correctAnswer }} -- deine Antwort:
-    {{ wrongAnswer.answer }}
+  @if(listOfWrongAnswers().length > 0){
+  <div class="wrong-container">
+    Falsche Antworten:
+    <div class="list">
+      @for(wrongAnswer of listOfWrongAnswers(); track wrongAnswer){
+      <div class="entry">
+        {{ wrongAnswer.question }} →
+        <p>{{ wrongAnswer.correctAnswer }}</p>
+        (deine Antwort:
+        <p>{{ wrongAnswer.answer }}</p>
+        )
+      </div>
+      }
+    </div>
   </div>
   }
+  <app-button (clickEmitted)="startExamination()">Prüfung erneut starten</app-button>}
 </div>
-<button (click)="startExamination()">Starte Prüfung erneut</button>} }
+} }@else {
+<div>Keine Wortpaare vorhanden. Erfasse zuerst welche.</div>
+}

@@ -14,7 +14,13 @@ import { CardComponent } from '../../components/shared/card-component/card-compo
 export class TrainerComponent {
   protected view = signal<TrainerViews>('manage');
 
+  protected examinationRunning = signal(false);
+
   setView(view: TrainerViews): void {
     this.view.set(view);
+  }
+
+  updateExaminationRunning(running: boolean): void {
+    this.examinationRunning.set(running);
   }
 }

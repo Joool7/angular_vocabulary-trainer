@@ -1,13 +1,13 @@
 .row {
   display: flex;
   justify-content: space-between;
-  padding: 8px 4px;
+  padding: 4px;
   gap: 8px;
+  border-bottom: solid 1px var(--color-separator);
 
   .entry {
     flex: 1;
     display: flex;
-    border-bottom: solid 1px rgb(206, 206, 206);
     align-items: center;
 
     .action-container {
@@ -24,34 +24,5 @@
   &:hover .entry .action-container {
     opacity: 1;
     visibility: visible;
-  }
-  
-  form {
-    width: 100%;
-    .new-entry-container {
-      display: flex;
-      justify-content: space-between;
-
-      .entry {
-        flex: 1;
-        display: flex;
-        align-items: center;
-
-        input {
-          width: 100%;
-          max-width: 190px;
-          padding: 8px 8px;
-          border: none;
-          border-radius: 4px;
-          outline: none;
-          background-color: rgba(157, 157, 157, 0.186);
-        }
-
-        .action-container {
-          margin-left: auto;
-          margin-right: 0;
-        }
-      }
-    }
   }
 }

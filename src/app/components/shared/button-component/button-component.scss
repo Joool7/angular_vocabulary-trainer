@@ -1,39 +1,53 @@
 :host {
   button {
+    width: 100%;
     padding: 8px 8px;
     border: transparent;
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    box-shadow: var(--shadow);
     color: white;
     border-radius: 4px;
+    cursor: pointer;
 
     &:hover {
-      background: rgb(2, 0, 36);
       &.primary {
-        background: linear-gradient(90deg, #0073ed 0%, #398de6 100%);
+        background: linear-gradient(
+          90deg,
+          var(--color-primary) 0%,
+          var(--color-primary-active) 100%
+        );
       }
 
       &.secondary {
-        background: linear-gradient(90deg, #c3c3c3 0%, #e0dfdf 100%);
+        background: linear-gradient(
+          90deg,
+          var(--color-secondary) 0%,
+          var(--color-secondary-active) 100%
+        );
       }
 
       &.error {
-        background: linear-gradient(90deg, #ec5f34 0%, #ea7b59 100%);
+        background: linear-gradient(90deg, var(--color-error) 0%, var(--color-error-active) 100%);
       }
     }
 
     &.primary {
-      background-color: #0073ed;
+      background-color: var(--color-primary);
       color: white;
     }
 
     &.secondary {
-      background-color: #c3c3c3;
+      background-color: var(--color-secondary);
       color: black;
     }
 
     &.error {
-      background-color: #ec5f34;
+      background-color: var(--color-error);
       color: black;
+    }
+
+    &.disabled {
+      opacity: 0.5;
+      pointer-events: none;
     }
   }
 }

@@ -1,12 +1,12 @@
 import { Component, input, output } from '@angular/core';
 import { WordPair } from '../../../services/word-pair.model';
 import { EntryComponent } from './entry/entry/entry';
-import { FormsModule, NgForm } from '@angular/forms';
-import { ButtonComponent } from "../../shared/button-component/button-component";
+import { FormsModule } from '@angular/forms';
+import { EntryFormComponent } from './entry/entry-form-component/entry-form-component';
 
 @Component({
   selector: 'app-word-list',
-  imports: [EntryComponent, FormsModule, ButtonComponent],
+  imports: [EntryComponent, FormsModule, EntryFormComponent],
   templateUrl: './word-list.html',
   styleUrl: './word-list.scss',
 })
@@ -22,11 +22,8 @@ export class WordListComponent {
     language2: '',
   };
 
-  newEntry(form: NgForm) {
-    if (form.invalid) return;
-
-    this.newEmitter.emit(this.newWordPair);
-    form.resetForm();
+  newEntry(newWordPair: WordPair) {
+    this.newEmitter.emit(newWordPair);
   }
 
   updateEntry(wordPair: WordPair) {

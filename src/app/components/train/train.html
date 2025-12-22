@@ -1,12 +1,33 @@
-@if(selectedWordPair()){
-{{ question() }}
-@switch(state()){ @case('waitForAnswer'){
-<form #form="ngForm" (ngSubmit)="checkAnswer(form)">
-  <input type="text" name="userAnswer" required [(ngModel)]="userAnswer" placeholder="Antwort" />
-  <button type="submit">Prüfen</button>
-</form>
-} @case('correct'){
-<button (click)="selectNext()">Weiter</button>
-} @case('wrong'){ Korrekte Antwort: {{ this.correctAnswer() }}
-<button (click)="selectNext()">Weiter</button>
-} } }@else { Keine Wortpaare vorhanden. Erfasse zuerst welche. }
+<div class="container">
+  @if(priorizedList().length > 0){
+  <div>Übersetze folgendes Wort:</div>
+
+  <div class="translation-container">
+    <div class="question">
+      {{ question() }}
+    </div>
+
+    @switch(state()){ @case('waitForAnswer'){
+    <form #form="ngForm" (ngSubmit)="checkAnswer(form)">
+      <app-input [(value)]="userAnswer" placeholder="Deine Antwort..." />
+      <app-button class="button">Prüfen</app-button>
+    </form>
+    } @case('correct'){
+    <div class="note correct">
+      <div>✔️ Richtig</div>
+      <app-button [buttonType]="'secondary'" (clickEmitted)="selectNext()">Weiter</app-button>
+    </div>
+    } @case('wrong'){
+    <div class="note error">
+      <div>
+        😑 Korrekte Antwort:
+        <p>{{ this.correctAnswer() }}</p>
+      </div>
+      <app-button [buttonType]="'secondary'" (clickEmitted)="selectNext()">Weiter</app-button>
+    </div>
+    } }
+  </div>
+  } @else {
+  <div>Keine Wortpaare vorhanden. Erfasse zuerst welche.</div>
+  }
+</div>
