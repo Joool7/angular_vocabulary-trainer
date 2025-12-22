@@ -2,10 +2,11 @@ import { Component, input, output } from '@angular/core';
 import { WordPair } from '../../../services/word-pair.model';
 import { EntryComponent } from './entry/entry/entry';
 import { FormsModule, NgForm } from '@angular/forms';
+import { ButtonComponent } from "../../shared/button-component/button-component";
 
 @Component({
   selector: 'app-word-list',
-  imports: [EntryComponent, FormsModule],
+  imports: [EntryComponent, FormsModule, ButtonComponent],
   templateUrl: './word-list.html',
   styleUrl: './word-list.scss',
 })

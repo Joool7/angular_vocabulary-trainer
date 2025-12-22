@@ -1,18 +1,26 @@
-<div class="tab-container">
-  <div class="header-container">
-    <div class="header" (click)="setView('manage')">Erfassen</div>
-    <div class="header" (click)="setView('train')">Trainieren</div>
-    <div class="header" (click)="setView('examine')">Prüfen</div>
-  </div>
-  <div class="tab-content-container">
-    <div class="content">
-      @switch(view()){ @case('manage'){
-      <app-manage></app-manage>
-      } @case('train'){
-      <app-train></app-train>
-      } @case('examine'){
-      <app-examine></app-examine>
-      } }
+<div class="container">
+  <app-card class="card">
+    <div class="tab-container">
+      <div class="header-container">
+        <div class="header" (click)="setView('manage')" [class.active]="view() === 'manage'">
+          Erfassen
+        </div>
+        <div class="header" (click)="setView('train')" [class.active]="view() === 'train'">
+          Trainieren
+        </div>
+        <div class="header" (click)="setView('examine')" [class.active]="view() === 'examine'">
+          Prüfen
+        </div>
+      </div>
+      <div class="tab-content-container">
+        @switch(view()){ @case('manage'){
+        <app-manage></app-manage>
+        } @case('train'){
+        <app-train></app-train>
+        } @case('examine'){
+        <app-examine></app-examine>
+        } }
+      </div>
     </div>
-  </div>
+  </app-card>
 </div>

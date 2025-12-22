@@ -1,17 +1,29 @@
-.tab-container {
-  background-color: blue;
+.container {
+  display: flex;
+  justify-content: center;
 
-  .header-container {
-    display: flex;
-    justify-content: space-between;
+  .card {
+    width: 600px;
 
-    .header {
-      flex: 1;
-    }
-  }
+    .tab-container {
+      width: 100%;
 
-  .tab-content-container {
-    .content {
+      .header-container {
+        height: 20px;
+        display: flex;
+        justify-content: space-evenly;
+        border-bottom: #afafaf solid 1px;
+
+        .header {
+          &.active {
+            border-bottom: #0073ed solid 2px;
+          }
+        }
+      }
+
+      .tab-content-container {
+        margin-top: 16px;
+      }
     }
   }
 }

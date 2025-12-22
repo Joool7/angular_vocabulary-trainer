@@ -1,16 +1,17 @@
 .create-content {
-  background-color: aqua;
   display: flex;
   flex-direction: column;
 
   .action-container {
     display: flex;
-    button:last-child {
-      margin-left: auto;
-      margin-right: 0;
+    justify-content: end;
+
+    .button {
+      margin-left: 4px;
     }
   }
 
-  app-word-list {
+  .word-list {
+    margin-top: 8px;
   }
 }

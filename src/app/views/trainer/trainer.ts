@@ -3,10 +3,11 @@ import { ManageComponent as ManageComponent } from '../../components/manage/mana
 import { TrainerViews } from './trainer.model';
 import { TrainComponent } from '../../components/train/train';
 import { ExamineComponent } from '../../components/examine/examine';
+import { CardComponent } from '../../components/shared/card-component/card-component';
 
 @Component({
   selector: 'app-trainer',
-  imports: [ManageComponent, TrainComponent, ExamineComponent],
+  imports: [ManageComponent, TrainComponent, ExamineComponent, CardComponent],
   templateUrl: './trainer.html',
   styleUrl: './trainer.scss',
 })

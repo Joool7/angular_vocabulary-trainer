@@ -2,10 +2,11 @@ import { Component, computed, inject } from '@angular/core';
 import { WordListComponent } from './word-list/word-list';
 import { WordPairService } from '../../services/word-pair-service';
 import { WordPair } from '../../services/word-pair.model';
+import { ButtonComponent } from '../shared/button-component/button-component';
 
 @Component({
   selector: 'app-manage',
-  imports: [WordListComponent],
+  imports: [WordListComponent, ButtonComponent],
   templateUrl: './manage.html',
   styleUrl: './manage.scss',
 })

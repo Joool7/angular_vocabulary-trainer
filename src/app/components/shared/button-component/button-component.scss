@@ -1,0 +1,39 @@
+:host {
+  button {
+    padding: 8px 8px;
+    border: transparent;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    color: white;
+    border-radius: 4px;
+
+    &:hover {
+      background: rgb(2, 0, 36);
+      &.primary {
+        background: linear-gradient(90deg, #0073ed 0%, #398de6 100%);
+      }
+
+      &.secondary {
+        background: linear-gradient(90deg, #c3c3c3 0%, #e0dfdf 100%);
+      }
+
+      &.error {
+        background: linear-gradient(90deg, #ec5f34 0%, #ea7b59 100%);
+      }
+    }
+
+    &.primary {
+      background-color: #0073ed;
+      color: white;
+    }
+
+    &.secondary {
+      background-color: #c3c3c3;
+      color: black;
+    }
+
+    &.error {
+      background-color: #ec5f34;
+      color: black;
+    }
+  }
+}

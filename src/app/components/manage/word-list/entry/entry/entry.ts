@@ -1,10 +1,11 @@
 import { Component, inject, input, linkedSignal, output, signal } from '@angular/core';
 import { WordPair } from '../../../../../services/word-pair.model';
 import { FormsModule, NgForm } from '@angular/forms';
+import { ButtonComponent } from '../../../../shared/button-component/button-component';
 
 @Component({
   selector: 'app-entry',
-  imports: [FormsModule],
+  imports: [FormsModule, ButtonComponent],
   templateUrl: './entry.html',
   styleUrl: './entry.scss',
 })

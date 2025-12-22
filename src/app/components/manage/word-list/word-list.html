@@ -10,7 +10,7 @@
           <input
             type="text"
             name="language1"
-            placeholder="test"
+            placeholder="Deutsch..."
             [(ngModel)]="newWordPair.language1"
             required
           />
@@ -19,12 +19,12 @@
           <input
             type="text"
             name="language2"
-            placeholder="test"
+            placeholder="Englisch..."
             [(ngModel)]="newWordPair.language2"
             required
           />
           <div class="action-container">
-            <button type="submit">Save</button>
+            <app-button [buttonType]="'secondary'">Save</app-button>
           </div>
         </div>
       </div>
