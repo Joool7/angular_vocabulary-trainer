@@ -1,64 +1,48 @@
-# VocabularyTrainer
+# Vocabulary Trainer
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.3.
+A small Angular app to help learn and practice vocabulary with quizzes and review sessions.
 
-## Development server
+## Quick start
 
-To start a local development server, run:
+- Prerequisites: Node.js, npm, Angular CLI
+- Install: `npm install`
+- Start dev server: `npm start` (or `ng serve`)
+- Build: `npm run build` (or `ng build`)
 
-```bash
-ng serve
-```
+## Project structure
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- `src/app` — core app, components, and services
+- `src/assets` — static assets and data
 
-## Code scaffolding
+## Main Views
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### Manage
 
-```bash
-ng generate component component-name
-```
+- Purpose: Create, edit, and delete vocabulary entries in a word list
+- UI: List view for creating, update and delete words, bulk import some default words, and sort them alphabetically by either german or english. Reset word list if needed.
+- Data flow: Changes persist via the app's data service (JSON in memory / localStorage). Manage updates the canonical word set that other components read.
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+### Train
 
-```bash
-ng generate --help
-```
+- Purpose: Active learning via flashcards / review sessions to build recall and retention.
+- Flow: Items are shown one at a time; reveal translations and self-grade (e.g., "I remembered" / "I forgot") to influence future scheduling.
+- Behavior: Missed items are queued for immediate or prioritized future review; correct responses reduce short-term repetition frequency.
 
-## Building
+### Examine
 
-To build the project run:
+- Purpose: Formal assessment to measure retained knowledge (quiz mode).
+- Flow: Presents timed or untimed quizzes. Questions are randomized and drawn from current set.
+- Feedback & scoring: Session summary with score and items to revisit.
 
-```bash
-ng build
-```
+## How they work together (Conclusion)
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+- The three components form a cycle:
+  1. Manage — create and maintain a word set.
+  2. Train — practice and build reliable recall with repeated exposure and prioritization for missed items.
+  3. Examine — assess retention and highlight items that need further training or editing.
+- Shared services (e.g., `WordPairService`) keep state synchronized: Manage updates the word data, Train/Examine read that data and write progress metadata, and progress is persisted so future sessions reflect prior performance.
+- Recommended workflow: maintain your list (Manage), train frequently (Train) to build recall, and periodically examine (Examine) to verify progress; return to Manage to refine content.
 
-## Running unit tests
+Todo
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
-
-# Open Points
-
-- prüfung abbrechen
-- header bar
+- input von train und examin prüfen gegen empty
