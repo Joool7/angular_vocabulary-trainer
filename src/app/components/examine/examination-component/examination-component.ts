@@ -1,10 +1,9 @@
 import { Component, computed, input, OnDestroy, OnInit, output, signal } from '@angular/core';
 import { WordPair } from '../../../services/word-pair.model';
-import { FormsModule, NgForm } from '@angular/forms';
 import { ButtonComponent } from '../../shared/button-component/button-component';
 import { InputComponent } from '../../shared/input-component/input-component';
 import { PercentPipe } from '@angular/common';
-import { ProgressComponent } from "../../shared/progress-component/progress-component";
+import { ProgressComponent } from '../../shared/progress-component/progress-component';
 
 interface QuestionAnswer {
   question: string;
@@ -14,7 +13,7 @@ interface QuestionAnswer {
 
 @Component({
   selector: 'app-examination',
-  imports: [ButtonComponent, InputComponent, FormsModule, PercentPipe, ProgressComponent],
+  imports: [ButtonComponent, InputComponent, PercentPipe, ProgressComponent],
   templateUrl: './examination-component.html',
   styleUrl: './examination-component.scss',
 })
@@ -23,23 +22,20 @@ export class ExaminationComponent implements OnInit, OnDestroy {
   timeLimit = input<number>();
   examinationRunningEmitted = output<boolean | null>();
 
-  numberAnswered = signal(0);
   private _remainingQuestions: WordPair[] = [];
   private _interval: number = 0;
 
+  numberAnswered = signal(0);
   examinationStartDate = signal<number | null>(null);
   numberOfQuestions = signal(0);
   numberOfCorrectAnswers = signal(0);
-
   currentTimeCounter = signal(0);
-
   duration = signal('');
-
   listOfWrongAnswers = signal<QuestionAnswer[]>([]);
-
   selectedLanguage = signal(false);
   selectedWordPair = signal<WordPair | null>(null);
   userAnswer = signal('');
+
   question = computed(
     () =>
       (this.selectedLanguage()
@@ -52,12 +48,12 @@ export class ExaminationComponent implements OnInit, OnDestroy {
         ? this.selectedWordPair()?.language2
         : this.selectedWordPair()?.language1) ?? ''
   );
-
   progressInPercent = computed(() => {
     const timeLimit = this.timeLimit();
     if (!timeLimit) return 100;
     return (this.currentTimeCounter() / (timeLimit * 60 * 1000)) * 100;
   });
+  formValid = computed(() => this.userAnswer().trim());
 
   ngOnInit(): void {
     this.startExamination();
@@ -73,7 +69,6 @@ export class ExaminationComponent implements OnInit, OnDestroy {
     this.duration.set('');
     this._selectNextWordPair();
     this.listOfWrongAnswers.set([]);
-    this.userAnswer.set('');
 
     if (this.timeLimit() && this.timeLimit()! > 0) {
       this._startProgressbar();
@@ -84,9 +79,9 @@ export class ExaminationComponent implements OnInit, OnDestroy {
     this.examinationRunningEmitted.emit(null);
   }
 
-  checkAnswer(form: NgForm): void {
+  checkAnswer(): void {
     const selectedWordPair = this.selectedWordPair();
-    if (form.invalid || !selectedWordPair) return;
+    if (!this.formValid() || !selectedWordPair) return;
 
     const correctAnswered = this.userAnswer().toLowerCase() === this.correctAnswer();
     if (correctAnswered) {
@@ -102,7 +97,7 @@ export class ExaminationComponent implements OnInit, OnDestroy {
       ]);
     }
     this.numberAnswered.update((value) => value + 1);
-    form.resetForm();
+    this._resetForm();
 
     if (this.numberAnswered() < this.numberOfQuestions()) {
       this.selectNext();
@@ -113,7 +108,7 @@ export class ExaminationComponent implements OnInit, OnDestroy {
 
   selectNext(): void {
     this._selectNextWordPair();
-    this.userAnswer.set('');
+    this._resetForm();
   }
 
   ngOnDestroy(): void {
@@ -166,5 +161,9 @@ export class ExaminationComponent implements OnInit, OnDestroy {
 
   private _clearInterval(): void {
     if (this._interval) window.clearInterval(this._interval);
+  }
+
+  private _resetForm(): void {
+    this.userAnswer.set('');
   }
 }

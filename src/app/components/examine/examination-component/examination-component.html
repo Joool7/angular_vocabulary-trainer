@@ -12,9 +12,9 @@
     <div class="question">
       {{ question() }}
     </div>
-    <form #form="ngForm" (ngSubmit)="checkAnswer(form)">
+    <form (submit)="checkAnswer()">
       <app-input [(value)]="userAnswer" placeholder="Deine Antwort..." />
-      <app-button type="submit" [icon]="'send'">Bestätigen</app-button>
+      <app-button [icon]="'send'" [disabled]="!formValid()">Bestätigen</app-button>
     </form>
   </div>
   } @else {

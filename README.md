@@ -16,6 +16,8 @@ A small Angular app to help learn and practice vocabulary with quizzes and revie
 
 ## Main Views
 
+Running the app needs internet connection as fonts are not offline available. Developped and tested for Google Chrome.
+
 ### Manage
 
 - Purpose: Create, edit, and delete vocabulary entries in a word list
@@ -42,7 +44,3 @@ A small Angular app to help learn and practice vocabulary with quizzes and revie
   3. Examine — assess retention and highlight items that need further training or editing.
 - Shared services (e.g., `WordPairService`) keep state synchronized: Manage updates the word data, Train/Examine read that data and write progress metadata, and progress is persisted so future sessions reflect prior performance.
 - Recommended workflow: maintain your list (Manage), train frequently (Train) to build recall, and periodically examine (Examine) to verify progress; return to Manage to refine content.
-
-Todo
-
-- input von train und examin prüfen gegen empty

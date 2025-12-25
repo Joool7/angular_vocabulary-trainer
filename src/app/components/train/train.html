@@ -8,9 +8,9 @@
     </div>
 
     @switch(state()){ @case('waitForAnswer'){
-    <form #form="ngForm" (ngSubmit)="checkAnswer(form)">
+    <form (submit)="checkAnswer()">
       <app-input [(value)]="userAnswer" placeholder="Deine Antwort..." />
-      <app-button class="button" [icon]="'clarify'">Prüfen</app-button>
+      <app-button class="button" [disabled]="!formValid()" [icon]="'clarify'">Prüfen</app-button>
     </form>
     } @case('correct'){
     <div class="note correct">

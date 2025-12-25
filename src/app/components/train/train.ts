@@ -1,19 +1,23 @@
 import { Component, inject, computed, signal, OnInit } from '@angular/core';
 import { WordPairService } from '../../services/word-pair-service';
 import { WordPair } from '../../services/word-pair.model';
-import { FormsModule, NgForm } from '@angular/forms';
 import { ButtonComponent } from '../shared/button-component/button-component';
 import { InputComponent } from '../shared/input-component/input-component';
 import { IconComponent } from '../shared/icon-component/icon-component';
 
 @Component({
   selector: 'app-train',
-  imports: [FormsModule, ButtonComponent, InputComponent, IconComponent],
+  imports: [ButtonComponent, InputComponent, IconComponent],
   templateUrl: './train.html',
   styleUrl: './train.scss',
 })
 export class TrainComponent implements OnInit {
   private readonly _wordPairService = inject(WordPairService);
+
+  selectedLanguage = signal(false);
+  selectedWordPair = signal<WordPair | null>(null);
+  userAnswer = signal('');
+  state = signal<'waitForAnswer' | 'correct' | 'wrong'>('waitForAnswer');
 
   priorizedList = computed(() => {
     const list = this._wordPairService.wordList();
@@ -21,9 +25,6 @@ export class TrainComponent implements OnInit {
     const newOrIncorrectList = list.filter((wordPair) => !wordPair.isAnsweredCorrectly);
     return [...correctList, ...newOrIncorrectList, ...newOrIncorrectList];
   });
-
-  selectedLanguage = signal(false);
-  selectedWordPair = signal<WordPair | null>(null);
   question = computed(
     () =>
       (this.selectedLanguage()
@@ -36,17 +37,15 @@ export class TrainComponent implements OnInit {
         ? this.selectedWordPair()?.language2
         : this.selectedWordPair()?.language1) ?? ''
   );
-  userAnswer = signal('');
-
-  state = signal<'waitForAnswer' | 'correct' | 'wrong'>('waitForAnswer');
+  formValid = computed(() => this.userAnswer().trim());
 
   ngOnInit(): void {
     this._selectNextWordPair();
   }
 
-  checkAnswer(form: NgForm) {
+  checkAnswer() {
     const selectedWordPair = this.selectedWordPair();
-    if (form.invalid || !selectedWordPair) return;
+    if (!this.formValid() || !selectedWordPair) return;
 
     const correctAnswered = this.userAnswer().toLowerCase() === this.correctAnswer();
     if (correctAnswered) {
@@ -56,12 +55,12 @@ export class TrainComponent implements OnInit {
     }
     this._wordPairService.update({ ...selectedWordPair, isAnsweredCorrectly: correctAnswered });
 
-    form.resetForm();
+    this._resetForm();
   }
 
   selectNext(): void {
     this.state.set('waitForAnswer');
-    this.userAnswer.set('');
+    this._resetForm();
     this._selectNextWordPair();
   }
 
@@ -72,5 +71,9 @@ export class TrainComponent implements OnInit {
 
   private _getRandomElementOfList(list: WordPair[]) {
     return list[Math.floor(Math.random() * list.length)];
+  }
+
+  private _resetForm(): void {
+    this.userAnswer.set('');
   }
 }
