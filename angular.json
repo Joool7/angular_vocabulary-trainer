@@ -27,6 +27,11 @@
               {
                 "glob": "**/*",
                 "input": "public"
+              },
+              {
+                "glob": "**/*",
+                "input": "src/assets",
+                "output": "assets"
               }
             ],
             "styles": ["src/styles.scss"],
@@ -69,11 +74,7 @@
             }
           },
           "defaultConfiguration": "development",
-          "options": {
-            "stylePreprocessorOptions": {
-              "includePaths": ["src"]
-            }
-          }
+          "options": {}
         },
         "test": {
           "builder": "@angular/build:unit-test"

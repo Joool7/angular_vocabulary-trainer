@@ -10,20 +10,33 @@
     @switch(state()){ @case('waitForAnswer'){
     <form #form="ngForm" (ngSubmit)="checkAnswer(form)">
       <app-input [(value)]="userAnswer" placeholder="Deine Antwort..." />
-      <app-button class="button">Prüfen</app-button>
+      <app-button class="button" [icon]="'clarify'">Prüfen</app-button>
     </form>
     } @case('correct'){
     <div class="note correct">
-      <div>✔️ Richtig</div>
-      <app-button [buttonType]="'secondary'" (clickEmitted)="selectNext()">Weiter</app-button>
+      <div class="text">
+        <app-icon>check</app-icon>
+        <div>Richtig</div>
+      </div>
+      <app-button
+        [buttonType]="'secondary'"
+        (clickEmitted)="selectNext()"
+        [icon]="'chevron_forward'"
+        >Weiter</app-button
+      >
     </div>
     } @case('wrong'){
     <div class="note error">
-      <div>
-        😑 Korrekte Antwort:
+      <div class="text">
+        <app-icon>dangerous</app-icon> Korrekte Antwort:
         <p>{{ this.correctAnswer() }}</p>
       </div>
-      <app-button [buttonType]="'secondary'" (clickEmitted)="selectNext()">Weiter</app-button>
+      <app-button
+        [buttonType]="'secondary'"
+        (clickEmitted)="selectNext()"
+        [icon]="'chevron_forward'"
+        >Weiter</app-button
+      >
     </div>
     } }
   </div>

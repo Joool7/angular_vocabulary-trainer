@@ -4,8 +4,10 @@
   <div class="entry">
     {{ wordPair().language2 }}
     <div class="action-container">
-      <app-button (clickEmitted)="edit()">Edit</app-button>
-      <app-button [buttonType]="'error'" (clickEmitted)="delete()">Delete</app-button>
+      <app-button (clickEmitted)="edit()" [icon]="'edit'">Edit</app-button>
+      <app-button [buttonType]="'error'" (clickEmitted)="delete()" [icon]="'delete'"
+        >Delete</app-button
+      >
     </div>
   </div>
   }@else {

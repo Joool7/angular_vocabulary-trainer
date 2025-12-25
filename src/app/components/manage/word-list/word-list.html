@@ -1,14 +1,20 @@
 <div class="table">
   <div class="header-container">
-    <div class="header">Deutsch</div>
-    <div class="header">Englisch</div>
+    <div class="header" (click)="sort('german')">
+      Deutsch @if(sortOrder() === 'german'){
+      <img class="sort-icon" src="assets/sort.svg" alt="SortImage" />}
+    </div>
+    <div class="header" (click)="sort('english')">
+      Englisch @if(sortOrder() === 'english'){
+      <img class="sort-icon" src="assets/sort.svg" alt="SortImage" />}
+    </div>
   </div>
   <div class="table-container">
     <div class="new-entry-container">
       <app-entry-form [wordPair]="newWordPair" (updateEmitter)="newEntry($event)"></app-entry-form>
     </div>
 
-    @for(wordPair of wordList(); track wordPair.id){
+    @for(wordPair of sortedWordList(); track wordPair.id){
     <app-entry
       [wordPair]="wordPair"
       (deleteEmitter)="deleteEntry(wordPair.id)"

@@ -10,6 +10,12 @@
     .header {
       flex: 1;
       font-weight: 500;
+      cursor: pointer;
+
+      .sort-icon {
+        width: 16px;
+        height: 16px;
+      }
     }
   }
 

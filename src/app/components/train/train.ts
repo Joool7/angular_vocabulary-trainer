@@ -4,10 +4,11 @@ import { WordPair } from '../../services/word-pair.model';
 import { FormsModule, NgForm } from '@angular/forms';
 import { ButtonComponent } from '../shared/button-component/button-component';
 import { InputComponent } from '../shared/input-component/input-component';
+import { IconComponent } from '../shared/icon-component/icon-component';
 
 @Component({
   selector: 'app-train',
-  imports: [FormsModule, ButtonComponent, InputComponent],
+  imports: [FormsModule, ButtonComponent, InputComponent, IconComponent],
   templateUrl: './train.html',
   styleUrl: './train.scss',
 })
@@ -60,6 +61,7 @@ export class TrainComponent implements OnInit {
 
   selectNext(): void {
     this.state.set('waitForAnswer');
+    this.userAnswer.set('');
     this._selectNextWordPair();
   }
 

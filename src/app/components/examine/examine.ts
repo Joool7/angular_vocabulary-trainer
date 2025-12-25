@@ -32,6 +32,10 @@ export class ExamineComponent implements OnInit {
 
   listOfWrongAnswers = signal<QuestionAnswer[]>([]);
 
+  numberOfAnswers = computed(
+    () => this.numberOfCorrectAnswers() + this.listOfWrongAnswers().length
+  );
+
   selectedLanguage = signal(false);
   selectedWordPair = signal<WordPair | null>(null);
   question = computed(
@@ -62,6 +66,11 @@ export class ExamineComponent implements OnInit {
     this._selectNextWordPair();
     this.listOfWrongAnswers.set([]);
     this.userAnswer.set('');
+  }
+
+  cancelExamination(): void {
+    this.examinationStartDate.set(null);
+    this.examinationRunningEmitted.emit(false);
   }
 
   checkAnswer(form: NgForm): void {

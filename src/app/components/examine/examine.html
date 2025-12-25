@@ -1,16 +1,21 @@
 @if(numberOfQuestions() > 0){ @if(!examinationStartDate()){
-<app-button (clickEmitted)="startExamination()">Prüfung starten</app-button>
+<app-button (clickEmitted)="startExamination()" [icon]="'start'">Prüfung starten</app-button>
 }@else {
 <div class="container">
   @if(duration() === ''){
-  <div>Übersetze folgendes Wort:</div>
+  <div class="header-container">
+    <div>Übersetze folgendes Wort ({{ numberOfAnswers() }}/{{ numberOfQuestions() }}):</div>
+    <app-button [buttonType]="'secondary'" (clickEmitted)="cancelExamination()" [icon]="'close'"
+      >Prüfung abbrechen</app-button
+    >
+  </div>
   <div class="translation-container">
     <div class="question">
       {{ question() }}
     </div>
     <form #form="ngForm" (ngSubmit)="checkAnswer(form)">
       <app-input [(value)]="userAnswer" placeholder="Deine Antwort..." />
-      <app-button type="submit">Bestätigen</app-button>
+      <app-button type="submit" [icon]="'send'">Bestätigen</app-button>
     </form>
   </div>
   } @else {

@@ -20,6 +20,7 @@ export class EntryFormComponent {
   formValid = computed(() => this.newLanguage1()?.trim() && this.newLanguage2()?.trim());
 
   updateEntry() {
+    if (!this.formValid()) return;
     this.updateEmitter.emit({
       ...this.wordPair(),
       language1: this.newLanguage1(),

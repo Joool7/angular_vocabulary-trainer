@@ -1,15 +1,23 @@
 <div class="create-content">
   <div class="action-container">
-    <app-button class="button" [buttonType]="'primary'" (clickEmitted)="importDefault()"
+    <app-button
+      class="button"
+      [buttonType]="'primary'"
+      [icon]="'upload'"
+      (clickEmitted)="importDefault()"
       >Default Einträge importieren</app-button
     >
-    <app-button class="button" [buttonType]="'secondary'" (clickEmitted)="resetList()"
+    <app-button
+      class="button"
+      [buttonType]="'secondary'"
+      [icon]="'delete_history'"
+      (clickEmitted)="resetList()"
       >Reset</app-button
     >
   </div>
   <app-word-list
     class="word-list"
-    [wordList]="wordList()"
+    [wordList]="wordPairService.wordList()"
     (deleteEmitter)="deleteEntry($event)"
     (newEmitter)="newEntry($event)"
     (updateEmitter)="updateEntry($event)"

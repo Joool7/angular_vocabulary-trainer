@@ -11,29 +11,25 @@ import { ButtonComponent } from '../shared/button-component/button-component';
   styleUrl: './manage.scss',
 })
 export class ManageComponent {
-  private readonly _wordPairService = inject(WordPairService);
-
-  wordList = computed(() =>
-    this._wordPairService.wordList().sort((a, b) => a.language1.localeCompare(b.language1))
-  );
+  protected readonly wordPairService = inject(WordPairService);
 
   importDefault(): void {
-    this._wordPairService.import();
+    this.wordPairService.import();
   }
 
   resetList(): void {
-    this._wordPairService.reset();
+    this.wordPairService.reset();
   }
 
   deleteEntry(id: string): void {
-    this._wordPairService.delete(id);
+    this.wordPairService.delete(id);
   }
 
   newEntry(wordPair: WordPair): void {
-    this._wordPairService.add(wordPair);
+    this.wordPairService.add(wordPair);
   }
 
   updateEntry(wordPair: WordPair): void {
-    this._wordPairService.update(wordPair);
+    this.wordPairService.update(wordPair);
   }
 }

@@ -1,3 +1,5 @@
 <button (click)="click()" [class]="buttonType()" [class.disabled]="disabled()">
-  <ng-content></ng-content>
+  @if(icon()){
+  <app-icon>{{ icon() }}</app-icon
+  >} <ng-content></ng-content>
 </button>

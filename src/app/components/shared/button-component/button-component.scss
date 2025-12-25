@@ -7,6 +7,8 @@
     color: white;
     border-radius: 4px;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
 
     &:hover {
       &.primary {
@@ -48,6 +50,10 @@
     &.disabled {
       opacity: 0.5;
       pointer-events: none;
+    }
+
+    app-icon {
+      margin-right: 4px;
     }
   }
 }
