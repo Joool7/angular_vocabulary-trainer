@@ -1,52 +1,13 @@
-@if(numberOfQuestions() > 0){ @if(!examinationStartDate()){
-<app-button (clickEmitted)="startExamination()" [icon]="'start'">Prüfung starten</app-button>
+@if(wordPairService.wordList().length > 0){ @if(examinationRunning() === null){
+<app-configuration (examinationStartEmitted)="startExamination($event)"></app-configuration>
 }@else {
-<div class="container">
-  @if(duration() === ''){
-  <div class="header-container">
-    <div>Übersetze folgendes Wort ({{ numberOfAnswers() }}/{{ numberOfQuestions() }}):</div>
-    <app-button [buttonType]="'secondary'" (clickEmitted)="cancelExamination()" [icon]="'close'"
-      >Prüfung abbrechen</app-button
-    >
-  </div>
-  <div class="translation-container">
-    <div class="question">
-      {{ question() }}
-    </div>
-    <form #form="ngForm" (ngSubmit)="checkAnswer(form)">
-      <app-input [(value)]="userAnswer" placeholder="Deine Antwort..." />
-      <app-button type="submit" [icon]="'send'">Bestätigen</app-button>
-    </form>
-  </div>
-  } @else {
-  <div class="title">Prüfung beendet!</div>
-  <div class="result">
-    Dauer:
-    <p>{{ duration() }}</p>
-  </div>
-  <div class="result">
-    Ergebnis:
-    <p>{{ numberOfCorrectAnswers() }}/{{ numberOfQuestions() }}</p>
-  </div>
 
-  @if(listOfWrongAnswers().length > 0){
-  <div class="wrong-container">
-    Falsche Antworten:
-    <div class="list">
-      @for(wrongAnswer of listOfWrongAnswers(); track wrongAnswer){
-      <div class="entry">
-        {{ wrongAnswer.question }} →
-        <p>{{ wrongAnswer.correctAnswer }}</p>
-        (deine Antwort:
-        <p>{{ wrongAnswer.answer }}</p>
-        )
-      </div>
-      }
-    </div>
-  </div>
-  }
-  <app-button (clickEmitted)="startExamination()">Prüfung erneut starten</app-button>}
-</div>
+<app-examination
+  [wordList]="wordPairService.wordList()"
+  [timeLimit]="timeLimit()"
+  (examinationRunningEmitted)="updatedExaminationRunning($event)"
+></app-examination>
+
 } }@else {
 <div>Keine Wortpaare vorhanden. Erfasse zuerst welche.</div>
 }

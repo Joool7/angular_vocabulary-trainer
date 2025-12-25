@@ -1,0 +1,52 @@
+<div class="container">
+  @if(duration() === ''){ @if(timeLimit()){
+  <app-progress [value]="progressInPercent()" [direction]="'decreasing'"></app-progress>
+  }
+  <div class="header-container">
+    <div>Übersetze folgendes Wort ({{ numberAnswered() }}/{{ numberOfQuestions() }}):</div>
+    <app-button [buttonType]="'secondary'" (clickEmitted)="cancelExamination()" [icon]="'close'"
+      >Prüfung abbrechen</app-button
+    >
+  </div>
+  <div class="translation-container">
+    <div class="question">
+      {{ question() }}
+    </div>
+    <form #form="ngForm" (ngSubmit)="checkAnswer(form)">
+      <app-input [(value)]="userAnswer" placeholder="Deine Antwort..." />
+      <app-button type="submit" [icon]="'send'">Bestätigen</app-button>
+    </form>
+  </div>
+  } @else {
+  <div class="title">Prüfung beendet! @if(progressInPercent() <= 0){Zeit abgelaufen!}</div>
+  <div class="result">
+    Dauer:
+    <p>{{ duration() }}</p>
+  </div>
+  <div class="result">
+    Ergebnis:
+    <p>
+      {{ numberOfCorrectAnswers() }}/{{ numberOfQuestions() }} ({{
+        numberOfCorrectAnswers() / numberOfQuestions() | percent
+      }})
+    </p>
+  </div>
+
+  @if(listOfWrongAnswers().length > 0){
+  <div class="wrong-container">
+    Falsche Antworten:
+    <div class="list">
+      @for(wrongAnswer of listOfWrongAnswers(); track wrongAnswer){
+      <div class="entry">
+        {{ wrongAnswer.question }} →
+        <p>{{ wrongAnswer.correctAnswer }}</p>
+        (deine Antwort:
+        <p>{{ wrongAnswer.answer }}</p>
+        )
+      </div>
+      }
+    </div>
+  </div>
+  }
+  <app-button (clickEmitted)="cancelExamination()">Zurück</app-button>}
+</div>

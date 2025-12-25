@@ -1,0 +1,5 @@
+<div class="container">
+  Zeitlimit wählen:
+  <app-radio [options]="timeOptions" [(selectedOption)]="selectedTimeOption"></app-radio>
+  <app-button (clickEmitted)="startExamination()" [icon]="'start'">Prüfung starten</app-button>
+</div>
