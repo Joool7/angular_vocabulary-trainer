@@ -12,13 +12,13 @@
     <div class="question">
       {{ question() }}
     </div>
-    <form (submit)="checkAnswer()">
+    <form (submit)="checkAnswer($event)">
       <app-input [(value)]="userAnswer" placeholder="Deine Antwort..." />
       <app-button [icon]="'send'" [disabled]="!formValid()">Bestätigen</app-button>
     </form>
   </div>
   } @else {
-  <div class="title">Prüfung beendet! @if(progressInPercent() <= 0){Zeit abgelaufen!}</div>
+  <div class="title">Prüfung beendet! @if(timeExpired()){Zeit abgelaufen!}</div>
   <div class="result">
     Dauer:
     <p>{{ duration() }}</p>

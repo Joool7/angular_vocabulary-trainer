@@ -43,7 +43,9 @@ export class TrainComponent implements OnInit {
     this._selectNextWordPair();
   }
 
-  checkAnswer() {
+  checkAnswer(event: SubmitEvent) {
+    event.preventDefault();
+    
     const selectedWordPair = this.selectedWordPair();
     if (!this.formValid() || !selectedWordPair) return;
 

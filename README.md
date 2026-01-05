@@ -12,7 +12,7 @@ A small Angular app to help learn and practice vocabulary with quizzes and revie
 ## Project structure
 
 - `src/app` — core app, components, and services
-- `src/assets` — static assets and data
+- `src/assets` — static assets
 
 ## Main Views
 
@@ -22,13 +22,12 @@ Running the app needs internet connection as fonts are not offline available. De
 
 - Purpose: Create, edit, and delete vocabulary entries in a word list
 - UI: List view for creating, update and delete words, bulk import some default words, and sort them alphabetically by either german or english. Reset word list if needed.
-- Data flow: Changes persist via the app's data service (JSON in memory / localStorage). Manage updates the canonical word set that other components read.
 
 ### Train
 
-- Purpose: Active learning via flashcards / review sessions to build recall and retention.
+- Purpose: Active learning via review sessions to build recall and retention.
 - Flow: Items are shown one at a time; reveal translations and self-grade (e.g., "I remembered" / "I forgot") to influence future scheduling.
-- Behavior: Missed items are queued for immediate or prioritized future review; correct responses reduce short-term repetition frequency.
+- Behavior: Missed items are queued for prioritized future review; correct responses reduce short-term repetition frequency.
 
 ### Examine
 
@@ -42,5 +41,5 @@ Running the app needs internet connection as fonts are not offline available. De
   1. Manage — create and maintain a word set.
   2. Train — practice and build reliable recall with repeated exposure and prioritization for missed items.
   3. Examine — assess retention and highlight items that need further training or editing.
-- Shared services (e.g., `WordPairService`) keep state synchronized: Manage updates the word data, Train/Examine read that data and write progress metadata, and progress is persisted so future sessions reflect prior performance.
+- Shared services (e.g., `WordPairService`) keep state synchronized: Manage updates the word data, Train/Examine read that data and write progress metadata, and progress is persisted so future sessions reflect prior performance (localStorage).
 - Recommended workflow: maintain your list (Manage), train frequently (Train) to build recall, and periodically examine (Examine) to verify progress; return to Manage to refine content.

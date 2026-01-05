@@ -1,10 +1,8 @@
 <div class="container">
-  <div>
     @for(option of options(); track option){
     <label (click)="selectedOption.set(option)">
       <input type="radio" name="radio" [checked]="option === selectedOption()" />
       <span>{{ option.visibleValue }}</span>
     </label>
     }
-  </div>
 </div>

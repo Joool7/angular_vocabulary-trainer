@@ -20,7 +20,7 @@ export class ConfigurationComponent {
     },
     {
       checked: true,
-      value: 5,
+      value: 0.2,
       visibleValue: '5 min',
     },
     {

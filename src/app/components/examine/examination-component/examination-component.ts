@@ -35,6 +35,7 @@ export class ExaminationComponent implements OnInit, OnDestroy {
   selectedLanguage = signal(false);
   selectedWordPair = signal<WordPair | null>(null);
   userAnswer = signal('');
+  timeExpired = signal(false);
 
   question = computed(
     () =>
@@ -70,6 +71,7 @@ export class ExaminationComponent implements OnInit, OnDestroy {
     this._selectNextWordPair();
     this.listOfWrongAnswers.set([]);
 
+    this.timeExpired.set(false);
     if (this.timeLimit() && this.timeLimit()! > 0) {
       this._startProgressbar();
     }
@@ -79,7 +81,9 @@ export class ExaminationComponent implements OnInit, OnDestroy {
     this.examinationRunningEmitted.emit(null);
   }
 
-  checkAnswer(): void {
+  checkAnswer(event: SubmitEvent): void {
+    event.preventDefault();
+
     const selectedWordPair = this.selectedWordPair();
     if (!this.formValid() || !selectedWordPair) return;
 
@@ -120,6 +124,7 @@ export class ExaminationComponent implements OnInit, OnDestroy {
     if (!examinationStart) return;
     this.examinationRunningEmitted.emit(false);
     this.duration.set(this._millisToReadableTime(Date.now() - examinationStart));
+    this._clearInterval();
   }
 
   private _selectNextWordPair(): void {
@@ -153,8 +158,8 @@ export class ExaminationComponent implements OnInit, OnDestroy {
     this._interval = window.setInterval(() => {
       this.currentTimeCounter.update((value) => value + 250);
       if (this.currentTimeCounter() >= this.timeLimit()! * 60 * 1000) {
+        this.timeExpired.set(true);
         this._finishTest();
-        this._clearInterval();
       }
     }, 250);
   }
